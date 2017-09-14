@@ -65,7 +65,7 @@ class OneTurnPlayer < Player
 end
 
 
-class StopsHalfTheTimePlayer < Player
+class FiftyFiftyPlayer < Player
   def start_turn
     super
     @rollNumber = 0
@@ -81,7 +81,7 @@ class StopsHalfTheTimePlayer < Player
   end
 end
 
-class WinInTenTurnsPlayer < Player
+class TenTurnPlayer < Player
   def initialize(name)
     super
     @turnNumber = 0
