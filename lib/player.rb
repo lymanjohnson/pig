@@ -81,30 +81,32 @@ class StopsHalfTheTimePlayer < Player
   end
 end
 
-# class WinInTenTurnsPlayer < Player
-#   def initialize(name)
-#     super
-#     @turnNumber = 0
-#   end
-#
-#   def end_turn
-#     super
-#     @turnNumber += 1
-#   end
-#
-#   def roll_again?
-#     if @turnNumber == 10
-#       turnsLeft = 1
-#     else
-#       turnsLeft = 10 - @turnNumber
-#     end
-#     scoreNeededEachTurn = (100-@score)/turnsLeft
-#     binding.pry
-#
-#     if @turn_score > scoreNeededEachTurn || turn_over
-#       return false
-#     else
-#       return true
-#
-#   end
-# end
+class WinInTenTurnsPlayer < Player
+  def initialize(name)
+    super
+    @turnNumber = 0
+  end
+
+  def start_turn
+    super
+    @turnNumber += 1
+  end
+
+  def roll_again?
+    if @turnNumber >= 10
+      turnsLeft = 1
+    else
+      turnsLeft = 10 - @turnNumber
+    end
+
+    scoreNeededEachTurn = (100-@score)/turnsLeft
+    # binding.pry
+
+    if (@turn_score > scoreNeededEachTurn) || @turn_over
+      return false
+    else
+      return true
+    end
+
+  end
+end
