@@ -1,3 +1,5 @@
+require 'pry'
+
 class Player
   attr_reader :score, :name, :wins, :losses
 
@@ -55,8 +57,15 @@ class BoldPlayer < Player
   end
 end
 
-class StopsHalfTheTimePlayer < Player
 
+class OneTurnPlayer < Player
+  def roll_again?
+    super && @turn_score < 100
+  end
+end
+
+
+class StopsHalfTheTimePlayer < Player
   def start_turn
     super
     @rollNumber = 0
@@ -68,29 +77,34 @@ class StopsHalfTheTimePlayer < Player
   end
 
   def roll_again?
-    if (@rollNumber == 0)
-      true
-    else
-      !@turn_over && (rand(2) == 1)
-    end
+    !@turn_over && (rand(2) == 1) || (@rollNumber == 0)
   end
 end
 
-class WinInTenTurnsPlayer < Player
-
-  def initialize(name)
-    super
-    @turnNumber = 0
-  end
-
-  def end_turn
-    super
-    @turnNumber += 1
-  end
-
-  def roll_again?
-    turnsLeft = 10 - @turnNumber
-    scoreNeededEachTurn = @score/turnsLeft
-    super && @turn_score >= scoreNeededEachTurn
-  end
-end
+# class WinInTenTurnsPlayer < Player
+#   def initialize(name)
+#     super
+#     @turnNumber = 0
+#   end
+#
+#   def end_turn
+#     super
+#     @turnNumber += 1
+#   end
+#
+#   def roll_again?
+#     if @turnNumber == 10
+#       turnsLeft = 1
+#     else
+#       turnsLeft = 10 - @turnNumber
+#     end
+#     scoreNeededEachTurn = (100-@score)/turnsLeft
+#     binding.pry
+#
+#     if @turn_score > scoreNeededEachTurn || turn_over
+#       return false
+#     else
+#       return true
+#
+#   end
+# end
