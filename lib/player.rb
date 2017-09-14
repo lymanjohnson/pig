@@ -51,7 +51,7 @@ class CautiousPlayer < Player
   end
 end
 
-class BoldPlayer < Player
+class CrazyPlayer < Player
   def roll_again?
     super && @turn_score < 20
   end
