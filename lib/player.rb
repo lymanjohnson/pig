@@ -6,7 +6,6 @@ class Player
     @score = 0
     @wins = 0
     @losses = 0
-    @turnNumber = 0
   end
 
   def start_game
@@ -57,12 +56,32 @@ class BoldPlayer < Player
 end
 
 class StopsHalfTheTimePlayer < Player
+
+  def start_turn
+    super
+    @rollNumber = 0
+  end
+
+  def record_roll(roll)
+      super
+      @rollNumber += 1
+  end
+
   def roll_again?
-    super && rand(2)
+    if (@rollNumber == 0)
+      true
+    else
+      !@turn_over && (rand(2) == 1)
+    end
   end
 end
 
 class WinInTenTurnsPlayer < Player
+
+  def initialize(name)
+    super
+    @turnNumber = 0
+  end
 
   def end_turn
     super
